@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/summarization-interface/static/css/main.842b794b.css",
+    "main.js": "/summarization-interface/static/js/main.ec34d29a.js",
+    "index.html": "/summarization-interface/index.html",
+    "main.842b794b.css.map": "/summarization-interface/static/css/main.842b794b.css.map",
+    "main.ec34d29a.js.map": "/summarization-interface/static/js/main.ec34d29a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.842b794b.css",
+    "static/js/main.ec34d29a.js"
+  ]
+}
