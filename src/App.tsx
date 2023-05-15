@@ -45,9 +45,8 @@ function App() {
             //     alert('Возникла ошибка!');
             //     setIsLoading(false);
             // });
-        console.log('result', result)
 
-        setResponseText(result.data.summary_text);
+        setResponseText(result.data[0].summary_text);
 
         setIsLoading(false);
     }
