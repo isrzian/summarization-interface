@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import { HfInference } from '@huggingface/inference'
 import {Breadcrumb, Button, Col, Input, Layout, Menu, Row, theme} from 'antd';
-import './App.css';
 import {mockArticle} from './mock/MockArticle';
+import './App.css';
 
 const { Header, Content, Footer } = Layout;
 const { TextArea } = Input;
@@ -12,24 +12,11 @@ function App() {
     const [sendText, setSendText] = useState(mockArticle);
     const [responseText, setResponseText] = useState('');
 
+    const hf = new HfInference(process.env.REACT_APP_TOKEN);
+
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-
-    async function createPromiseQuery(data: string) {
-        return axios.post(
-            'https://api-inference.huggingface.co/models/sambydlo/bart-large-scientific-lay-summarisation',
-            {inputs: data},
-            {
-
-                headers: {
-                    'Authorization': `Bearer ${process.env.REACT_APP_TOKEN}`,
-                    'Access-Control-Allow-Headers': 'Authorization',
-                    'content-type': 'application/json'
-                }
-            }
-        );
-    }
 
     const generate = async () => {
         setIsLoading(true);
@@ -39,14 +26,15 @@ function App() {
             return;
         }
 
-        const result = await createPromiseQuery(sendText)
-            // .then(({data}) => data)
-            // .catch(() => {
-            //     alert('Возникла ошибка!');
-            //     setIsLoading(false);
-            // });
+        const result = await hf.summarization({
+            model: 'sambydlo/bart-large-scientific-lay-summarisation',
+            inputs: sendText,
+            parameters: {
+                max_length: 1000,
+            }
+        })
 
-        setResponseText(result.data[0].summary_text);
+        setResponseText(result.summary_text);
 
         setIsLoading(false);
     }
@@ -72,7 +60,7 @@ function App() {
                 </Breadcrumb>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>
                     <Row gutter={[16, 16]}>
-                        <Col span={8}>
+                        <Col span={8} xs={24} xl={8}>
                             <TextArea
                                 style={{ height: 500, marginBottom: 24 }}
                                 placeholder="Исходный текст"
@@ -82,6 +70,8 @@ function App() {
                         </Col>
                         <Col
                             span={6}
+                            xs={24}
+                            xl={8}
                             style={{ display: 'flex', justifyContent: 'center'}}
                         >
                             <Button
@@ -92,7 +82,7 @@ function App() {
                                 Сгенерировать
                             </Button>
                         </Col>
-                        <Col span={8}>
+                        <Col span={8} xs={24} xl={8}>
                             <TextArea
                                 style={{ height: 500, marginBottom: 24 }}
                                 placeholder="Сгенерированная суммаризация"

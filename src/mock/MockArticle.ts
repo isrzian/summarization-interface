@@ -9,7 +9,4 @@ export const mockArticle = 'This paper elucidates the relationship between possi
     'driven by social goals (e.g., opportunities to have relationships with others) were able to continue\n' +
     'volunteer activities without needing to change them. The study also clarified that having directly\n' +
     'or indirectly experienced COVID-19 symptoms did not influence changes in voluntary activities of\n' +
-    'older people. These results have important policy implications, given the indication that through\n' +
-    'volunteering, older individuals may try to counter the undesired calls by the governments for selfisolation and physical distancing. It is important that in emergency situations involving older people,\n' +
-    'policy makers should not treat them as only recipients of health and social care, but also as useful\n' +
-    'providers of help in the community';
+    'older people.'
